@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#34C759">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GlucoCare">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="styles.css">
+<title>GlucoCare 2.0</title>
+</head>
+<body>
+<div class="app">
+<header><div><small>GlucoCare 2.0</small><h1 id="greeting">早上好</h1></div><button id="theme">◐</button></header>
+<main>
+<section class="card hero">
+<p>今天的血糖</p>
+<div class="reading"><span id="latest">--</span><small> mmol/L</small></div>
+<div id="status" class="badge neutral">暂无记录</div>
+<div class="quick">
+<input id="value" type="number" inputmode="decimal" step="0.1" min="1" max="35" placeholder="例如 6.6">
+<select id="type"><option>空腹</option><option>早餐后</option><option>午餐前</option><option>午餐后</option><option>晚餐前</option><option>晚餐后</option><option>睡前</option><option>其他</option></select>
+<button id="save" class="primary">保存记录</button>
+</div>
+</section>
+
+<section class="grid">
+<div class="card stat"><span>7天平均</span><strong id="avg7">--</strong><small>mmol/L</small></div>
+<div class="card stat"><span>30天平均</span><strong id="avg30">--</strong><small>mmol/L</small></div>
+<div class="card stat"><span>最高</span><strong id="max">--</strong><small>mmol/L</small></div>
+<div class="card stat"><span>最低</span><strong id="min">--</strong><small>mmol/L</small></div>
+</section>
+
+<section class="card"><div class="row"><h2>智能提示</h2><span class="tag">本机分析</span></div><p id="insight">记录至少3次后显示趋势。</p></section>
+
+<section class="card"><div class="row"><h2>30天趋势</h2><select id="filter"><option>全部</option><option>空腹</option><option>餐后</option></select></div><canvas id="chart"></canvas></section>
+
+<section class="card"><div class="row"><h2>最近记录</h2><button id="detail" class="link">详细新增</button></div><div id="records"></div></section>
+
+<section class="card tools" id="tools"><h2>工具</h2><div class="toolgrid"><button id="export">导出 CSV</button><label>导入备份<input id="import" type="file" accept=".csv"></label><button id="reminder">通知权限</button><button id="clear" class="danger">清除全部</button></div><p class="muted">数据仅保存在本机。建议每周导出备份。</p></section>
+</main>
+<nav><button data-go="top" class="active">首页</button><button data-go="chart">趋势</button><button data-go="records">记录</button><button data-go="tools">工具</button></nav>
+</div>
+
+<dialog id="dialog"><form id="form" method="dialog">
+<div class="row"><h2>新增记录</h2><button value="cancel">✕</button></div>
+<label>血糖值<input id="fvalue" type="number" inputmode="decimal" step="0.1" required></label>
+<label>测量时段<select id="ftype"><option>空腹</option><option>早餐后</option><option>午餐前</option><option>午餐后</option><option>晚餐前</option><option>晚餐后</option><option>睡前</option><option>其他</option></select></label>
+<label>日期<input id="fdate" type="date" required></label>
+<label>时间<input id="ftime" type="time" required></label>
+<label>备注<textarea id="notes" rows="3" placeholder="例如：晚餐后2小时"></textarea></label>
+<button id="fsave" class="primary" value="default">保存</button>
+</form></dialog>
+<div id="toast"></div>
+<script src="app.js"></script>
+</body></html>
